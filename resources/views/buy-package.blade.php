@@ -28,7 +28,7 @@
               </div>
             </div>
             <div class="col-lg-6">
-              <img src="assets/images/deal-01.jpg" alt="">
+              <img src="{{asset('frontend/assets/images/deal-01.jpg')}}" alt="">
             </div>
             <div class="col-lg-3">
               <h4>Extra Info About Property</h4>
@@ -60,7 +60,7 @@
       <div class="row">
         <div class="col-lg-4 col-md-6">
           <div class="item">
-            <a href="{{route('buy-package')}}"><img src="assets/images/property-01.jpg" alt=""></a>
+            <a href="{{route('buy-package')}}"><img src="{{asset('frontend/assets/images/property-01.jpg')}} " alt=""></a>
             <span class="category">Luxury Villa</span>
             <h6>$2.264.000</h6>
             <h4><a href="{{route('buy-package')}}">18 New Street Miami, OR 97219</a></h4>
@@ -78,7 +78,7 @@
         </div>
         <div class="col-lg-4 col-md-6">
           <div class="item">
-            <a href="{{route('buy-package')}}"><img src="assets/images/property-02.jpg" alt=""></a>
+            <a href="{{route('buy-package')}}"><img src="{{asset('frontend/assets/images/property-02.jpg')}} " alt=""></a>
             <span class="category">Luxury Villa</span>
             <h6>$1.180.000</h6>
             <h4><a href="{{route('buy-package')}}">54 Mid Street Florida, OR 27001</a></h4>
@@ -96,7 +96,7 @@
         </div>
         <div class="col-lg-4 col-md-6">
           <div class="item">
-            <a href="{{route('buy-package')}}"><img src="assets/images/property-03.jpg" alt=""></a>
+            <a href="{{route('buy-package')}}"><img src="{{asset('frontend/assets/images/property-03.jpg')}} " alt=""></a>
             <span class="category">Luxury Villa</span>
             <h6>$1.460.000</h6>
             <h4><a href="{{route('buy-package')}}">26 Old Street Miami, OR 38540</a></h4>
