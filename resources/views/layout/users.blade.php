@@ -101,7 +101,7 @@
                         </div>
                     </div>
                     <a href="{{route('user.team')}}" class="nav-item nav-link {{ request()->is('user/team') ? 'active' : ''}}"><i class="fa fa-users me-2"></i>Team</a>
-                    <a href="{{route('login')}}" class="nav-item nav-link"><i class="fa fa-arrow-right-from-bracket me-2"></i>Logout</a>
+                    <a href="{{route('logout')}}" class="nav-item nav-link"><i class="fa fa-arrow-right-from-bracket me-2"></i>Logout</a>
                 </div>
             </nav>
         </div>
@@ -129,7 +129,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                         <a href="{{route('user.profile')}}" class="dropdown-item">My Profile</a>
-                        <a href="{{route('login')}}" class="dropdown-item">Log Out</a>
+                        <a href="{{route('logout')}}" class="dropdown-item">Log Out</a>
                     </div>
                 </div>
             </div>

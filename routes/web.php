@@ -88,15 +88,15 @@ Route::prefix('admin')->group(function (){
 
 
 });
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('Auth')->group(function () {
     Route::resource('category',CategoryController::class);
-    Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 });
 // AuthController
 Route::get('register',[AuthController::class, 'create'])->name('register');
 Route::post('register',[AuthController::class, 'signUp']);
 Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('login', [AuthController::class, 'login']);
+Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 // HomeController
 Route::get('/', [HomeController::class, 'index'])->name('home');
 // ContactController

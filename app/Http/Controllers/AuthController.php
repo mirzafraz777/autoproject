@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Session;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -33,6 +32,9 @@ class AuthController extends Controller
 
     // -------------------------LogIn----------------------------------------
     public function showLoginForm(){
+        if(Auth::check()){
+            return redirect()->route('user.index');
+        }
         return view('login');
     }
 
@@ -45,7 +47,7 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->intended('register');
+            return redirect()->intended('user/dashboard');
         }
 
         return back()->withErrors([
@@ -55,8 +57,9 @@ class AuthController extends Controller
 
      // ------------------------- LogOut ---------------------
     public function logout(Request $request)
-    {
-         // Log the user out
+    {   
+
+        // Log the user out
         Auth::logout();
 
         $request->session()->invalidate();
