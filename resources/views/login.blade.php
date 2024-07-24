@@ -14,12 +14,13 @@
       </div>
       <div class="row">
         <div class="col-lg-8 offset-lg-2">
-            <form id="login-form" action="" method="post">
+            <form id="login-form" action="{{route('login')}}" method="POST">
+                @csrf
                 <div class="row">
                   <div class="col-lg-12">
                     <fieldset>
                       <label for="email">Email Address</label>
-                      <input type="text" name="email" id="email" pattern="[^ @]*@[^ @]*" placeholder="Your E-mail..."
+                      <input type="text" value="{{old('email')}}" name="email" id="email" pattern="[^ @]*@[^ @]*" placeholder="Your E-mail..."
                         required="">
                     </fieldset>
                   </div>
@@ -43,7 +44,7 @@
                         <span>Don't have an account </span><a href="{{route('register')}}">Sign Up</a>
                     </div>
                 </div>
-              </form>    
+              </form>
         </div>
       </div>
     </div>
