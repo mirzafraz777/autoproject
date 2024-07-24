@@ -17,7 +17,7 @@ class PackageSeeder extends Seeder
             [
                 'name'=>'Package-1',
                 'price'=>'100.00',
-                'image'=>'',
+                'image'=>'package_default.png',
                 'type'=>false,
                 'cat_id'=>1,
                 'no_of_days'=>100,
@@ -28,7 +28,7 @@ class PackageSeeder extends Seeder
             [
                 'name'=>'Package-2',
                 'price'=>'200.00',
-                'image'=>'',
+                'image'=>'package_default.png',
                 'type'=>false,
                 'cat_id'=>2,
                 'no_of_days'=>200,
@@ -39,7 +39,7 @@ class PackageSeeder extends Seeder
             [
                 'name'=>'Package-3',
                 'price'=>'300.00',
-                'image'=>'',
+                'image'=>'package_default.png',
                 'type'=>true,
                 'cat_id'=>4,
                 'no_of_days'=>400,
@@ -50,7 +50,7 @@ class PackageSeeder extends Seeder
             [
                 'name'=>'Package-4',
                 'price'=>'400.00',
-                'image'=>'',
+                'image'=>'package_default.png',
                 'type'=>false,
                 'cat_id'=>1,
                 'no_of_days'=>100,
@@ -61,7 +61,7 @@ class PackageSeeder extends Seeder
             [
                 'name'=>'Package-5',
                 'price'=>'1000.00',
-                'image'=>'',
+                'image'=>'package_default.png',
                 'type'=>false,
                 'cat_id'=>4,
                 'no_of_days'=>300,

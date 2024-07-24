@@ -20,7 +20,7 @@ return new class extends Migration
             $table->boolean('type');
             $table->unsignedBigInteger('cat_id');
             $table->unsignedInteger('no_of_days');
-            $table->integer('counter');
+            $table->integer('counter')->default(0);
             $table->foreign('cat_id')->references('id')->on('categories');
             $table->timestamps();
         });

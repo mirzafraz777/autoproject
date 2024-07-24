@@ -1,8 +1,11 @@
 @extends('layout.main')
 @section('content')
 
-<x-breadcrumb />
+@php
+    $pageTitle = "Buy Package";
+@endphp
 
+<x-breadcrumb :pageTitle="$pageTitle"/>
 
 
 <div class="section best-deal">

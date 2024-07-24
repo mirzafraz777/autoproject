@@ -60,9 +60,9 @@
             <!-- ***** Logo End ***** -->
             <!-- ***** Menu Start ***** -->
             <ul class="nav">
-              <li><a href="/" class="active">Home</a></li>
-              <li><a href="{{route('packages')}}">Packages</a></li>
-              <li><a href="{{route('contact')}}">Contact Us</a></li>
+              <li><a href="/" class="{{ request()->is('/') ? 'active' : ''}}">Home</a></li>
+              <li><a href="{{route('packages')}}" class="{{ request()->is('packages') ? 'active' : ''}}">Packages</a></li>
+              <li><a href="{{route('contact')}}"  class="{{ request()->is('contact') ? 'active' : ''}}">Contact Us</a></li>
               <li><a href="{{route('login')}}"><i class="fa fa-user"></i> Login</a></li>
             </ul>
             <a class='menu-trigger'>

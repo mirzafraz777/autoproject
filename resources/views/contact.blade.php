@@ -1,7 +1,11 @@
 @extends('layout.main')
 @section('content')
 
-<x-breadcrumb />
+@php
+    $pageTitle = "Contact Us";
+@endphp
+
+<x-breadcrumb :pageTitle="$pageTitle"/>
 
   <div class="contact-page section">
     <div class="container">
