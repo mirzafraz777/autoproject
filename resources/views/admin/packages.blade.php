@@ -32,17 +32,18 @@
                                 @foreach ($packages as $package)
                                 <tr>
                                     <td>{{$package->id}}</td>
-                                    <td><img class="rounded-circle me-lg-2" src="{{asset('dashboard/img/'.$package->image) }}" alt="{{$package->name}}" style="width: 40px; height: 40px;">{{$package->name}}</td>
+                                    <td><img class="rounded-circle me-lg-2" src="{{asset('storage/'.$package->image) }}" alt="{{$package->name}}" style="width: 40px; height: 40px;">{{$package->name}}</td>
                                     <td>{{$package->category->category_name}}</td>
                                     <td>{{'$'.$package->price}}</td>
                                     <td>{{$package->counter}}</td>
                                     <td>{{$package->no_of_days}}</td>
                                     <td>{{  ($package->type) ? 'Featured':'Normal'  }}</td>
                                     <td>
-                                        <form action="{{route('packages.destroy',$package->id)}}" method="post">
+                                        <a href="{{route('packages.edit',$package->id)}}" class="btn btn-sm btn-outline-info"><i class="fa-regular fa-pen-to-square"></i></a>
+                                        <form action="{{route('packages.destroy',$package->id)}}" method="post" class="d-inline-block">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm"> <i class="fa fa-trash-alt"></i> Delete</button>
+                                            <button type="submit" class="btn btn-sm btn-outline-danger "> <i class="fa fa-trash-alt"></i></button>
                                         </form>
                                     </td>
                                 </tr>

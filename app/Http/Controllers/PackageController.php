@@ -22,7 +22,8 @@ class PackageController extends Controller
      */
     public function create()
     {
-        return view('admin.create_package');
+        $category = category::select('id','category_name')->get();
+        return view('admin.create_package' , compact('category'));
     }
 
     /**
@@ -30,7 +31,48 @@ class PackageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $request->validate([
+        "package_name" => 'required|max:255',
+        "package_price" => 'required|decimal:2,8',
+        "package_days" => 'required|integer',
+        "package_category" => 'required|integer',
+        ]);
+
+        if ($request->hasFile('package_image')) {
+
+            $request->validate([
+                'package_image' => 'image|mimes:jpeg,png,jpg|max:2048',
+            ]);
+
+            $imageName = time().'.'.$request->package_image->extension();
+
+
+            $request->file('package_image')->storeAs('images',$imageName , 'public');
+        }else{
+            $imageName = 'package_default.png';
+
+        }
+
+
+
+        $package = new Package();
+        $package->name = $request->package_name;
+        $package->price = $request->package_price;
+        $package->no_of_days = $request->package_days;
+        if(empty($request->featured_package)){
+            $package->type = 0;
+        }else{
+            $package->type = $request->featured_package;
+        }
+        
+        $package->cat_id = $request->package_category;
+        $package->image = 'images/'.$imageName;
+        $package->save();
+
+        // Package::create($pacakge);
+
+        return redirect()->route('packages.index')->with('message', 'Package Created Successfully.');
     }
 
     /**
@@ -46,7 +88,11 @@ class PackageController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $package = Package::with('category')->find($id);
+        $category = category::select('id','category_name')->get();
+        // return $package;
+        return view('admin.edit-package', compact(['package','category']));
+
     }
 
     /**
