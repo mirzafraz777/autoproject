@@ -1,8 +1,11 @@
 @extends('layout.main')
 @section('content')
 
-<x-breadcrumb />
+@php
+    $pageTitle = "Packages";
+@endphp
 
+<x-breadcrumb :pageTitle="$pageTitle"/>
 <div class="section properties">
     <div class="container">
       <ul class="properties-filter">
