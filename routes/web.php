@@ -6,7 +6,7 @@ use App\Http\Controllers\PackageController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ContactController;
-
+use App\Http\Controllers\UserController;
 
 Route::get('packages', function () {
     return view('packages');
@@ -64,13 +64,18 @@ Route::prefix('admin')->group(function (){
         return view('admin.index');
     })->name('admin.index');
 
+    Route::get('/', function(){
+        return redirect()->route('admin.index');
+    });
+
     Route::get('profile', function(){
         return view('admin.profile');
     })->name('admin.profile');
 
-    Route::get('team', function(){
-        return view('admin.team');
-    })->name('admin.team');
+    Route::get('users', [UserController::class,'index'])->name('admin.users');
+    Route::get('users/create', [UserController::class,'create'])->name('admin.create_user');
+    Route::get('users/{$id}/edit', [UserController::class,'edit'])->name('admin.edit_user');
+    Route::get('users/{$id}/delete', [UserController::class,'destroy'])->name('admin.destroy_user');
 
     Route::get('withdrawls', function(){
         return view('admin.withdrawls');

@@ -13,7 +13,7 @@ class PackageController extends Controller
      */
     public function index()
     {
-        $packages = Package::with('category')->get();
+        $packages = Package::with('category')->paginate(5,['*'],'p');
         return view('admin.packages', compact('packages'));
     }
 

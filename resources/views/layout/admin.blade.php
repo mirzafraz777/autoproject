@@ -65,6 +65,7 @@
                     <a href="{{route('admin.index')}}" class="nav-item nav-link {{ request()->is('admin/dashboard') ? 'active' : ''}}"><i
                             class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <a href="{{route('packages.index')}}" class="nav-item nav-link {{ request()->is('admin/packages') ? 'active' : ''}}"><i class="fa fa-box me-2"></i>Packages</a>
+                    <a href="{{route('admin.users')}}" class="nav-item nav-link {{ request()->is('admin/users') ? 'active' : ''}}"><i class="fa fa-users me-2"></i>Users</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-money-check-dollar"></i>Withdrawl</a>
                         <div class="dropdown-menu bg-transparent border-0"  >
