@@ -48,7 +48,6 @@
                                     </td>
                                 </tr>
                                 @endforeach
-                                {{ $packages->links() }}
                             </tbody>
                         </table>
                     </div>

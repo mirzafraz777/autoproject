@@ -15,7 +15,7 @@
       <div class="row">
         <div class="col-lg-8 offset-lg-2">
           <x-alert />
-            <form id="login-form" action="{{route('login')}}" method="POST">
+            <form id="login-form" action="{{route('authenticate')}}" method="POST">
                 @csrf
                 <div class="row">
                   <div class="col-lg-12">
