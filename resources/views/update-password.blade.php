@@ -6,22 +6,21 @@
       <div class="row">
         <div class="col-lg-4 offset-lg-4">
           <div class="section-heading text-center">
-            <h6>| Password Reset</h6>
+            <h6>| Update Password </h6>
             <h2>Lorem ipsum dolor sit amet.</h2>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-lg-8 offset-lg-2">
-          <x-alert />
-          <form id="login-form" action="{{route('reset-password')}}" method="post">
+          <form id="login-form" action="{{route('password-update',$token)}}" method="post">
             @csrf
               <div class="row">
                 <div class="col-lg-12">
                   <fieldset>
-                    <label for="email">Email Address</label>
-                    <input type="text" name="email" id="email" class="form-control @error('email') is-invalid @enderror"" placeholder="Your E-mail...">
-                    @error('email')
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror"" placeholder="Enter New Password">
+                    @error('password')
                     <div class="invalid-feedback">
                         {{ $message }}
                     </div>
@@ -30,7 +29,13 @@
                 </div>
                 <div class="col-lg-12">
                   <fieldset>
-                    <button type="submit" id="form-submit" class="orange-button">Reset Password</button>
+                    <label for="password_confirmation">Password Confirmation</label>
+                    <input type="password" name="password_confirmation" id="password_confirmation" class="form-control @error('password') is-invalid @enderror"" placeholder="Enter New Password">
+                  </fieldset>
+                </div>
+                <div class="col-lg-12">
+                  <fieldset>
+                    <button type="submit" id="form-submit" class="orange-button">Update Password</button>
                   </fieldset>
                 </div>
               </div>
@@ -39,7 +44,7 @@
                       <a href="{{route('login')}}" >Login</a>
                   </div>
               </div>
-            </form>    
+            </form>
         </div>
       </div>
     </div>

@@ -15,11 +15,7 @@
       <div class="row">
         <div class="col-lg-8 offset-lg-2">
           <x-alert />
-<<<<<<< HEAD
-            <form id="login-form" action="{{route('login')}}" method="POST">
-=======
             <form id="login-form" action="{{route('authenticate')}}" method="POST">
->>>>>>> fa3d1221e6976467f5c3ded8e1656e4a779f9ae3
                 @csrf
                 <div class="row">
                   <div class="col-lg-12">

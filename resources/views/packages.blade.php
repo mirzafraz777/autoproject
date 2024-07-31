@@ -12,25 +12,21 @@
         <li>
           <a class="is_active" href="#!" data-filter="*">Show All</a>
         </li>
+        @foreach ($categories as  $category)
         <li>
-          <a href="#!" data-filter=".adv">Apartment</a>
+          <a href="#!" data-filter="{{'.'.$category->category_name}}">{{$category->category_name}}</a>
         </li>
-        <li>
-          <a href="#!" data-filter=".str">Villa House</a>
-        </li>
-        <li>
-          <a href="#!" data-filter=".rac">Penthouse</a>
-        </li>
+            
+        @endforeach
       </ul>
-      <div class="container">
-        <div class="row">
+        <div class="row properties-box" style="position: relative; height: 1903.41px;">
             @foreach ($packages as  $package)
-                <div class="col-lg-4 col-md-6 mb-4">
+                <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 {{$package->category->category_name}}">
                     <div class="item">
-                        <a href="{{ route('buy-package') }}"><img src="{{ asset('frontend/assets/images/property-01.jpg') }}" alt=""></a>
+                        <a href="{{ route('buy-package',$package->id) }}"><img src="{{ ( $package->image ? asset('storage/images/'.$package->image): asset('storage/images/package_default.png') ) }}" alt="{{$package->name}}"></a>
                         <span class="category">{{$package->category->category_name}}</span>
                         <h6>{{ '$' . $package->price }}</h6>
-                        <h4><a href="{{ 'ahmad'.route('buy-package') }}"></a></h4>
+                        <h4><a href="{{ route('buy-package',$package->id) }}"> {{$package->name}} </a></h4>
                         <ul>
                             <li>Package Id: <span>{{ $package->id }}</span></li>
                             <li>Buying Times: <span>{{ $package->counter }}</span></li>
@@ -38,14 +34,13 @@
                             <li class="ps-4">Type: <span>{{ $package->type ? 'Featured' : 'Normal' }}</span></li>
                         </ul>
                         <div class="icon-button">
-                            <a href="{{ route('buy-package') }}"><i class="fa fa-cart-shopping"></i> Buy Now</a>
+                            <a href="{{ route('buy-package',$package->id) }}"><i class="fa fa-cart-shopping"></i> Buy Now</a>
                         </div>
                     </div>
                 </div>
             @endforeach
         </div>
-    </div>
-      <div class="row">
+      {{-- <div class="row">
         <div class="col-lg-12">
           <ul class="pagination">
             <li><a href="#">1</a></li>
@@ -54,7 +49,7 @@
             <li><a href="#">>></a></li>
           </ul>
         </div>
-      </div>
+      </div> --}}
     </div>
   </div>
 

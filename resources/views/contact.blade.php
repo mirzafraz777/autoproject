@@ -33,13 +33,13 @@
         </div>
         <div class="col-lg-6">
             <x-alert />
-            <form id="contact-form" action="{{ route('contact') }}" method="POST">
+            <form id="contact-form" action="{{ route('contactSubmit') }}" method="POST">
                 @csrf
                 <div class="row">
                     <div class="col-lg-12">
                         <fieldset>
                             <label for="name">Full Name</label>
-                            <input type="text" name="name" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Your Name..." autocomplete="on" required>
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}"  placeholder="Your Name...">
                             @error('name')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -50,7 +50,7 @@
                     <div class="col-lg-12">
                         <fieldset>
                             <label for="email">Email Address</label>
-                            <input type="email" name="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" id="email" pattern="[^ @]*@[^ @]*" placeholder="Your E-mail..." required>
+                            <input type="email" name="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" id="email" pattern="[^ @]*@[^ @]*" placeholder="Your E-mail...">
                             @error('email')
                                 <div class="invalid-feedback">
                                     {{ $message }}

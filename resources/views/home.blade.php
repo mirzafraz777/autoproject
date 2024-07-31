@@ -42,18 +42,18 @@
             @foreach ($packages as  $package)
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="item">
-                        <a href="{{ route('buy-package') }}"><img src="{{ asset('frontend/assets/images/property-01.jpg') }}" alt=""></a>
+                        <a href="{{ route('buy-package',$package->id) }}"><img src="{{ ( $package->image ? asset('storage/images/'.$package->image): asset('storage/images/package_default.png') ) }}" alt="Package Image"></a>
                         <span class="category">{{$package->category->category_name}}</span>
                         <h6>{{ '$' . $package->price }}</h6>
-                        <h4><a href="{{ 'ahmad'.route('buy-package') }}"></a></h4>
+                        <h4><a href="{{ route('buy-package',$package->id) }}"> {{$package->name}} </a></h4>
                         <ul>
-                            <li>Package Id: <span>{{ $package->id }}</span></li>
+                            <li>Package ID: <span>{{ $package->id }}</span></li>
                             <li>Buying Times: <span>{{ $package->counter }}</span></li>
                             <li>Days: <span>{{ $package->no_of_days }}</span></li>
                             <li class="ps-4">Type: <span>{{ $package->type ? 'Featured' : 'Normal' }}</span></li>
                         </ul>
                         <div class="icon-button">
-                            <a href="{{ route('buy-package') }}"><i class="fa fa-cart-shopping"></i> Buy Now</a>
+                            <a href="{{ route('buy-package',$package->id) }}"><i class="fa fa-cart-shopping"></i> Buy Now</a>
                         </div>
                     </div>
                 </div>
@@ -70,7 +70,7 @@
       <div class="row">
         <div class="col-lg-4">
           <div class="left-image">
-            <img src="{{ asset('frontend/assets/images/featured.jpg') }}" alt="">
+            <img src="{{ ( $featured_package->image ? asset('storage/images/'.$featured_package->image): asset('storage/images/package_default.png') ) }}" alt="">
             <a href="property-details.html"><img src="{{ asset('frontend/assets/images/featured-icon.png') }}" alt=""
                 style="max-width: 60px; padding: 0px;"></a>
           </div>
@@ -78,9 +78,13 @@
         <div class="col-lg-5">
           <div class="section-heading">
             <h6>| Featured</h6>
-            <h2>Best Appartment &amp; Sea view</h2>
+            <h2 class="pb-3">{{ $featured_package->name }}</h2>
+            <div class="icon-button pt-3">
+              <a href="{{route('buy-package',$featured_package->id)}}"><i class="fa fa-cart-shopping"></i> Buy Now</a>
+            </div>
+
           </div>
-          <div class="accordion" id="accordionExample">
+          {{-- <div class="accordion" id="accordionExample">
             <div class="accordion-item">
               <h2 class="accordion-header" id="headingOne">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
@@ -128,26 +132,26 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> --}}
         </div>
         <div class="col-lg-3">
           <div class="info-table">
             <ul>
               <li>
                 <img src="{{ asset('frontend/assets/images/info-icon-01.png') }}" alt="" style="max-width: 52px;">
-                <h4>250 m2<br><span>Total Flat Space</span></h4>
+                <h4>{{'$'.$featured_package->price}}<br><span>Price</span></h4>
               </li>
               <li>
                 <img src="{{ asset('frontend/assets/images/info-icon-02.png') }}" alt="" style="max-width: 52px;">
-                <h4>Contract<br><span>Contract Ready</span></h4>
+                <h4>{{$featured_package->category->category_name}}<br><span>Category</span></h4>
               </li>
               <li>
                 <img src="{{ asset('frontend/assets/images/info-icon-03.png') }}" alt="" style="max-width: 52px;">
-                <h4>Payment<br><span>Payment Process</span></h4>
+                <h4>{{$featured_package->no_of_days.' Days'}}<br><span>Bonus Interval</span></h4>
               </li>
               <li>
                 <img src="{{ asset('frontend/assets/images/info-icon-04.png') }}" alt="" style="max-width: 52px;">
-                <h4>Safety<br><span>24/7 Under Control</span></h4>
+                <h4>{{$featured_package->counter}}<br><span>Buying Times</span></h4>
               </li>
             </ul>
           </div>
@@ -238,7 +242,7 @@
                         website. In addition, you can type TemplateMo Portfolio, TemplateMo One Page Layouts, etc.
                       </p>
                       <div class="icon-button">
-                        <a href="{{route('buy-package')}}"><i class="fa fa-cart-shopping"></i> Buy Now</a>
+                        <a href="{{route('buy-package',$package->id)}}"><i class="fa fa-cart-shopping"></i> Buy Now</a>
                       </div>
                     </div>
                   </div>
@@ -266,7 +270,7 @@
                         JOMO ethical copper mug, succulents typewriter shaman DIY kitsch twee taiyaki fixie hella venmo
                         after messenger poutine next level humblebrag swag franzen.</p>
                       <div class="icon-button">
-                        <a href="{{route('buy-package')}}"><i class="fa fa-cart-shopping"></i> Buy Now</a>
+                        <a href="{{route('buy-package',$package->id)}}"><i class="fa fa-cart-shopping"></i> Buy Now</a>
                       </div>
                     </div>
                   </div>
@@ -294,7 +298,7 @@
                         JOMO ethical copper mug, succulents typewriter shaman DIY kitsch twee taiyaki fixie hella venmo
                         after messenger poutine next level humblebrag swag franzen.</p>
                       <div class="icon-button">
-                        <a href="{{route('buy-package')}}"><i class="fa fa-cart-shopping"></i> Buy Now</a>
+                        <a href="{{route('buy-package',$package->id)}}"><i class="fa fa-cart-shopping"></i> Buy Now</a>
                       </div>
                     </div>
                   </div>
@@ -386,31 +390,52 @@
           </div>
         </div>
         <div class="col-lg-5">
-          <form id="contact-form" action="" method="post">
+          <x-alert />
+          <form id="contact-form" action="{{ route('contactSubmit') }}" method="POST">
+            @csrf
             <div class="row">
               <div class="col-lg-12">
                 <fieldset>
                   <label for="name">Full Name</label>
-                  <input type="name" name="name" id="name" placeholder="Your Name..." autocomplete="on" required>
-                </fieldset>
+                  <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}"  placeholder="Your Name...">
+                    @error('name')
+                      <div class="invalid-feedback">
+                          {{ $message }}
+                      </div>
+                    @enderror
+              </fieldset>
               </div>
               <div class="col-lg-12">
                 <fieldset>
                   <label for="email">Email Address</label>
-                  <input type="text" name="email" id="email" pattern="[^ @]*@[^ @]*" placeholder="Your E-mail..."
-                    required="">
+                  <input type="email" name="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" id="email" pattern="[^ @]*@[^ @]*" placeholder="Your E-mail...">
+                  @error('email')
+                      <div class="invalid-feedback">
+                          {{ $message }}
+                      </div>
+                  @enderror
                 </fieldset>
               </div>
               <div class="col-lg-12">
                 <fieldset>
                   <label for="subject">Subject</label>
-                  <input type="subject" name="subject" id="subject" placeholder="Subject..." autocomplete="on">
+                  <input type="text" name="subject" value="{{ old('subject') }}" class="form-control @error('subject') is-invalid @enderror" id="subject" placeholder="Subject..." autocomplete="on">
+                  @error('subject')
+                      <div class="invalid-feedback">
+                          {{ $message }}
+                      </div>
+                  @enderror
                 </fieldset>
               </div>
               <div class="col-lg-12">
                 <fieldset>
                   <label for="message">Message</label>
-                  <textarea name="message" id="message" placeholder="Your Message"></textarea>
+                  <textarea name="message" id="message" class="form-control @error('message') is-invalid @enderror" placeholder="Your Message">{{ old('message') }}</textarea>
+                  @error('message')
+                      <div class="invalid-feedback">
+                          {{ $message }}
+                      </div>
+                  @enderror
                 </fieldset>
               </div>
               <div class="col-lg-12">

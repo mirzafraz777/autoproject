@@ -3,18 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\UserDetail;
 use App\Models\User;
+use Illuminate\Auth\Events\Logout;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
-    public function create()
+    public function showRegisterForm()
     {
         return view('register');
     }
-    public function signUp(Request $request)
+    public function register(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
@@ -34,29 +36,20 @@ class AuthController extends Controller
         ]);
         return redirect()->route('login')->with('message', 'Account created successfully.');
     }
-    // update status
-    public function updateStatus($userId)
-    {
-        $user = User::findOrFail($userId);
 
-        if($user){
-            if ($user->users_info->status) {
-                // Toggle the status
-                $user->users_info->status = 0;
-            }else{
-                $user->users_info->status = 1;
-            }
-            $user->users_info->save();
-        }
-        // Redirect back with a success message
-        return back();
-    }
+
     // -------------------------LogIn----------------------------------------
-    public function showLoginForm(){
-        return view('login');
+    public function showLoginForm()
+    {
+        if (Auth::check()) {
+            return redirect()->route('user.index');
+        } else {
+            return view('login');
+        }
     }
 
-    public function login(Request $request){
+    public function login(Request $request)
+    {
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
@@ -66,22 +59,18 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             $user = Auth::user();
-            // return $user;
-            if (Auth::user()->role == 0) {
-                return redirect()->route('user.index');
-            }else{
-                return redirect()->route('user.index');
+
+            if ($user->role == 0) {
+                return redirect()->route('user.index')->with('message', 'Logged In Successfully.');
+            } else {
+                Auth::logout();
+                return redirect()->route('home')->with('message', 'You are not authorized.');
             }
         }
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ]);
+        return back()->with('message', 'The provided credentials do not match our records.');
     }
-    public function Userindex()
-    {
-        return view('user.index');
-    }
-     // ------------------------- LogOut ---------------------
+
+    // ------------------------- LogOut ---------------------
     public function logout(Request $request)
     {
 
@@ -89,6 +78,55 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/');
+        return redirect()->route('home')->with('message', 'Logout Successfully.');
+    }
+
+
+    public function resetPassword(Request $request)
+    {
+
+        if ($request->isMethod('POST')) {
+            $request->validate([
+                'email' => ['required', 'email'],
+            ]);
+            $user =  User::where('email', $request->email)->first();
+            if ($user) {
+                $user->verification_token = Str::random();
+                $user->email_verified_at = now();
+                $user->save();
+
+                return redirect()->route('login')->with('message', 'Reset link successfully send to your email address.');
+                //    Send User Email
+                //   URL = http://www.example.com/reset-password/token/$user->verification_token         
+            } else {
+                return back()->with('message', 'User with this email does not exists.');
+            }
+        } else {
+
+            return view('reset-password');
+        }
+    }
+
+    public function passwordUpdate($token, Request $request)
+    {
+        if ($request->isMethod('POST')) {
+            $request->validate([
+                'password' => 'required|string|min:4|confirmed',
+            ]);
+            $user =  User::where('verification_token', $token)->first();
+            if ($user) {
+                $user->verification_token = '';
+                $user->email_verified_at = now();
+                $user->password = Hash::make($request->password);
+                $user->save();
+
+                return redirect()->route('login')->with('message', 'Password Update Successfully.');
+            } else {
+                return redirect()->route('login')->with('message', 'Bad Request.');
+            }
+        } else {
+
+            return view('update-password', compact('token'));
+        }
     }
 }

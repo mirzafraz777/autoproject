@@ -27,10 +27,6 @@
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{{ asset('dashboard/css/bootstrap.min.css')}}" rel="stylesheet">
 
-<<<<<<< HEAD
-    <!-- Template Stylesheet -->
-    <link href="{{ asset('dashboard/css/style.css')}}" rel="stylesheet">
-=======
     <!-- Bootstrap core CSS -->
     <link href="{{asset('frontend/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
 
@@ -43,7 +39,6 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/owl.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/animate.css') }}">
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
->>>>>>> fa3d1221e6976467f5c3ded8e1656e4a779f9ae3
 </head>
 
 <body>
@@ -61,42 +56,26 @@
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
-                <a href="{{route('user.index')}}" class="navbar-brand mx-4 mb-3">
-<<<<<<< HEAD
-                    <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>DASHMIN</h3>
-                </a>
-                <div class="d-flex align-items-center ms-4 mb-4">
-                    <div class="position-relative">
-                        <img class="rounded-circle" src="{{ asset('dashboard/img/user.jpg') }}" alt="" style="width: 40px; height: 40px;">
-=======
+                <a href="{{route('admin.index')}}" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary"></i>DASHMIN</h3>
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
                         <img class="rounded-circle" src="{{ asset('frontend/assets/images/property-01.jpg') }}" alt="" style="width: 40px; height: 40px;">
->>>>>>> fa3d1221e6976467f5c3ded8e1656e4a779f9ae3
                         <div
                             class="bg-success rounded-circle border-2 border-white position-absolute end-0 bottom-0 p-1">
                         </div>
                     </div>
                     <div class="ms-3">
-<<<<<<< HEAD
-                        <h6 class="mb-0">Jhon Doe</h6>
-                        <span>Admin</span>
-=======
                         {{-- <h6 class="mb-0">{{$user->name}}</h6> --}}
                         {{-- <span>Admin</span> --}}
->>>>>>> fa3d1221e6976467f5c3ded8e1656e4a779f9ae3
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
                     <a href="{{route('admin.index')}}" class="nav-item nav-link {{ request()->is('admin/dashboard') ? 'active' : ''}}"><i
                             class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <a href="{{route('packages.index')}}" class="nav-item nav-link {{ request()->is('admin/packages') ? 'active' : ''}}"><i class="fa fa-box me-2"></i>Packages</a>
-<<<<<<< HEAD
-=======
                     <a href="{{route('admin.users')}}" class="nav-item nav-link {{ request()->is('admin/users') ? 'active' : ''}}"><i class="fa fa-users me-2"></i>Users</a>
->>>>>>> fa3d1221e6976467f5c3ded8e1656e4a779f9ae3
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-money-check-dollar"></i>Withdrawl</a>
                         <div class="dropdown-menu bg-transparent border-0"  >
@@ -115,7 +94,7 @@
     <div class="content">
         <!-- Navbar Start -->
         <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-            <a href="{{route('user.index')}}" class="navbar-brand d-flex d-lg-none me-4">
+            <a href="{{route('admin.index')}}" class="navbar-brand d-flex d-lg-none me-4">
                 <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
             </a>
             <a href="#" class="sidebar-toggler flex-shrink-0">
@@ -127,18 +106,12 @@
             <div class="navbar-nav align-items-center ms-auto">
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-<<<<<<< HEAD
-                        <img class="rounded-circle me-lg-2" src="{{ asset('dashboard/img/user.jpg') }}" alt=""
-                            style="width: 40px; height: 40px;">
-                        <span class="d-none d-lg-inline-flex">John Doe</span>
-=======
                         <img class="rounded-circle me-lg-2" src="{{ asset('frontend/assets/images/property-01.jpg') }}" alt=""
                             style="width: 40px; height: 40px;">
                         {{-- <span class="d-none d-lg-inline-flex">{{$user->name}}</span> --}}
->>>>>>> fa3d1221e6976467f5c3ded8e1656e4a779f9ae3
                     </a>
                     <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                        <a href="{{route('user.profile')}}" class="dropdown-item">My Profile</a>
+                        <a href="{{route('admin.profile')}}" class="dropdown-item">My Profile</a>
                         <a href="{{route('admin.login')}}" class="dropdown-item">Log Out</a>
                     </div>
                 </div>
@@ -189,8 +162,4 @@
     <script src="{{ asset('dashboard/js/main.js')}}"></script>
 </body>
 
-<<<<<<< HEAD
 </html>
-=======
-</html>
->>>>>>> fa3d1221e6976467f5c3ded8e1656e4a779f9ae3
