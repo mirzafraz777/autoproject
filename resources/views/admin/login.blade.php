@@ -53,12 +53,15 @@
                             </a>
                             <h3>Sign In</h3>
                         </div>
+                        <x-alert />
+                    <form action="{{route('admin.login')}}" method="POST">
+                        @csrf
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                            <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com">
                             <label for="floatingInput">Email address</label>
                         </div>
                         <div class="form-floating mb-4">
-                            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                            <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
                             <label for="floatingPassword">Password</label>
                         </div>
                         <div class="d-flex align-items-center justify-content-between mb-4">
@@ -69,6 +72,7 @@
                             <a href="{{route('admin.reset-password')}}">Forgot Password</a>
                         </div>
                         <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Sign In</button>
+                    </form>
                     </div>
                 </div>
             </div>

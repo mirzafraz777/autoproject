@@ -49,47 +49,86 @@ class AuthController extends Controller
             }
             $user->users_info->save();
         }
-        // Redirect back with a success message
         return back();
     }
     // -------------------------LogIn----------------------------------------
     public function showLoginForm(){
         return view('login');
     }
-
+    // user login
     public function login(Request $request){
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
 
-
         if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            $user = Auth::user();
-            // return $user;
-            if (Auth::user()->role == 0) {
-                return redirect()->route('user.index');
-            }else{
-                return redirect()->route('user.index');
+            return redirect()->route('user.index');
+        }
+        return redirect()->route('login')->with('message', 'The provided credentials do not match our records');
+    }
+
+
+        // User Dashboard
+        public function userDash(Request $request){
+            if (Auth::check()) {
+                $data = UserDetail::all();
+                $balance = $data->sum('current_balance');
+                $total_earning = $data->sum('total_earning');
+                $ref_bonus = $data->sum('ref_bonus');
+                $total = $total_earning + $ref_bonus;
+
+                return view('user.index', compact('balance', 'total', 'ref_bonus'));
+            } else {
+                return redirect()->route('login');
             }
         }
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ]);
-    }
-    public function Userindex()
-    {
-        return view('user.index');
-    }
-     // ------------------------- LogOut ---------------------
-    public function logout(Request $request)
-    {
 
-        // Log the user out
+    // admin login
+    public function Adminlogin(Request $request){
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            if($user->role == 1){
+                return view('admin.index');
+            }
+            return redirect()->route('admin.login')->with('message', 'The provided credentials do not match our records.');
+        }
+    }
+
+        // Admin Dashboard
+        public function adminDash(Request $request){
+            if (Auth::check()) {
+                $data = UserDetail::all();
+                $balance = $data->sum('current_balance');
+                $total_earning = $data->sum('total_earning');
+                $ref_bonus = $data->sum('ref_bonus');
+                $total = $total_earning + $ref_bonus;
+
+                return view('admin.index', compact('balance', 'total', 'ref_bonus'));
+            } else {
+                return redirect()->route('admin.login');
+            }
+        }
+
+        // user logout
+        public function userLogout(Request $request)
+        {
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            return redirect('login');
+        }
+     // Admin LogOut ---------------------
+    public function adminLogout(Request $request)
+    {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/');
+        return redirect('admin.login');
     }
 }

@@ -65,7 +65,7 @@
                     <a href="{{route('user.index')}}" class="nav-item nav-link {{ request()->is('user/dashboard') ? 'active' : ''}}"><i
                             class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <div class="nav-item dropdown">
-                       
+
                         @php
                             $dropdown = [];
                             if (request()->is('user/withdrawls')){
@@ -91,7 +91,7 @@
                                 $dropdown['withdrawls_active'] = "";
                                 $dropdown['bank_active'] = "";
 
-                            }                        
+                            }
                         @endphp
 
                         <a href="#" class="nav-link dropdown-toggle {{ $dropdown['show'] .' '. $dropdown['active']}} " data-bs-toggle="dropdown" aria-expanded="{{ $dropdown['expanded'] }}"><i class="fa fa-money-check-dollar"></i>Withdrawl</a>

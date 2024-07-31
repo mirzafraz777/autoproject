@@ -52,7 +52,6 @@
         </div>
         <!-- Spinner End -->
 
-
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
@@ -84,7 +83,7 @@
                         </div>
                     </div>
                     <a href="#" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Team</a>
-                    <a href="{{route('admin.login')}}" class="nav-item nav-link"><i class="fa fa-arrow-right-from-bracket me-2"></i>Logout</a>
+                    <a href="{{route('logout')}}" class="nav-item nav-link"><i class="fa fa-arrow-right-from-bracket me-2"></i>Logout</a>
                 </div>
             </nav>
         </div>
@@ -118,8 +117,6 @@
             </div>
         </nav>
         <!-- Navbar End -->
-
-
 
             @yield('adminContent')
 

@@ -10,6 +10,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashController;
 
+
 // FrontEnd Routes
 Route::get('/', [HomeController::class, 'packageShow'])->name('home');
 Route::get('/contact', [HomeController::class, 'contactFormShow'])->name('contact');
@@ -33,11 +34,10 @@ Route::get('buy-package', function () {
 // AuthController
 Route::get('register',[AuthController::class, 'create'])->name('register');
 Route::post('register',[AuthController::class, 'signUp']);
-Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('login', [AuthController::class, 'login'])->name('authenticate');
-
-
+Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+// Route::get('logout', [AuthController::class, 'adminLogout'])->name('admin.logout');
 Route::get('user/{id}', [AuthController::class, 'updateStatus'])->name('user.updateStatus');
 
 
@@ -47,12 +47,7 @@ Route::get('user/{id}', [AuthController::class, 'updateStatus'])->name('user.upd
 // User Dashboard Routes
 
 Route::prefix('user')->group(function (){
-
-        // Route::get('dashboard', function() {
-        //     return view('user.index');
-        // })->name('user.index');
-        Route::get('/dashboard', [AuthController::class, 'Userindex'])->name('user.index');
-
+    Route::get('dashboard', [AuthController::class, 'userDash'])->name('user.index');
 
     Route::get('profile', function(){
         return view('user.profile');
@@ -82,22 +77,18 @@ Route::prefix('admin')->group(function (){
         return view('admin.login');
     })->name('admin.login');
 
+    Route::post('login', [AuthController::class, 'Adminlogin']);
+
     Route::get('reset-password', function(){
         return view('admin.reset-password');
     })->name('admin.reset-password');
-
-    // Route::get('dashboard', function(){
-    //     return view('admin.index');
-    // })->middleware(['auth', 'verified'])->name('admin.index');
-    Route::middleware('auth')->group(function () {
-        Route::get('dashboard', function() {
-            return view('admin.index');
-        })->name('admin.index');
-    });
+    Route::get('dashboard', [AuthController::class, 'adminDash'])
+    ->name('admin.index');
 
     Route::get('/', function(){
         return redirect()->route('admin.index');
     });
+
 
     Route::get('profile', function(){
         return view('admin.profile');

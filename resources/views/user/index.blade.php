@@ -1,6 +1,6 @@
 @extends('../layout.users')
 @section('userContent')
-    
+
             <!-- Sales and Revenue Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
@@ -9,7 +9,7 @@
                             <i class="fa fa-money-check-dollar fa-3x text-primary"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Balance</p>
-                                <h6 class="mb-0">$1234</h6>
+                                {{-- <h6 class="mb-0">${{$balance}} </h6> --}}
                             </div>
                         </div>
                     </div>
@@ -17,8 +17,8 @@
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                             <i class="fa fa-chart-area fa-3x text-primary"></i>
                             <div class="ms-3">
-                                <p class="mb-2">Today Revenue</p>
-                                <h6 class="mb-0">$1234</h6>
+                                <p class="mb-2">Total Revenue</p>
+                                {{-- <h6 class="mb-0">${{$total}} </h6> --}}
                             </div>
                         </div>
                     </div>
@@ -27,7 +27,7 @@
                             <i class="fa fa-chart-pie fa-3x text-primary"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Referral Bonus</p>
-                                <h6 class="mb-0">$1234</h6>
+                                {{-- <h6 class="mb-0">${{$ref_bonus}} </h6> --}}
                             </div>
                         </div>
                     </div>
