@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class UserDetail extends Model
 {
     use HasFactory;
+<<<<<<< HEAD
+=======
+    protected $fillable = [
+        'u_id', 'current_balance', 'total_earning', 'ref_bonus', 'status', 'ref_code', 'img'
+    ];
+>>>>>>> ahmad
 }

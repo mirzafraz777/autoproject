@@ -62,8 +62,13 @@
             <ul class="nav">
               <li><a href="/" class="{{ request()->is('/') ? 'active' : ''}}">Home</a></li>
               <li><a href="{{route('packages')}}" class="{{ request()->is('packages') ? 'active' : ''}}">Packages</a></li>
-              <li><a href="{{route('contact')}}"  class="{{ request()->is('contact') ? 'active' : ''}}">Contact Us</a></li>
+              <li><a href="{{route('contactShow')}}"  class="{{ request()->is('contactShow') ? 'active' : ''}}">Contact Us</a></li>
+              @if (Auth::check())
+              <li><a href="{{route('user.index')}}"><i class="fa fa-gauge-high"></i> Dashboard</a></li>
+              @else    
               <li><a href="{{route('login')}}"><i class="fa fa-user"></i> Login</a></li>
+              @endif
+              
             </ul>
             <a class='menu-trigger'>
               <span>Menu</span>

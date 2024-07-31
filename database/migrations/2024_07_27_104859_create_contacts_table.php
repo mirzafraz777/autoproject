@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('packages', function (Blueprint $table) {
-            $table->string('image')->default('images/package_default.png')->change();
+        Schema::create('contacts', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('email');
+            $table->string('subject');
+            $table->string('message');
+            $table->timestamps();
         });
     }
 
@@ -21,12 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('packages', function (Blueprint $table) {
-<<<<<<< HEAD
-            $table->string('image')->change();
-=======
-            $table->dropColumn('image');
->>>>>>> ahmad
-        });
+        Schema::dropIfExists('contacts');
     }
 };

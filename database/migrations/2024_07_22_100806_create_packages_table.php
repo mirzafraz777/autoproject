@@ -17,10 +17,10 @@ return new class extends Migration
             $table->string('name');
             $table->decimal('price');
             $table->string('image');
-            $table->boolean('type');
+            $table->boolean('type')->default(0);
             $table->unsignedBigInteger('cat_id');
             $table->unsignedInteger('no_of_days');
-            $table->integer('counter');
+            $table->integer('counter')->nullable();
             $table->foreign('cat_id')->references('id')->on('categories');
             $table->timestamps();
         });

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\category;
 use App\Models\Package;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PackageController extends Controller
 {
@@ -65,12 +66,10 @@ class PackageController extends Controller
         }else{
             $package->type = $request->featured_package;
         }
-        
+
         $package->cat_id = $request->package_category;
         $package->image = 'images/'.$imageName;
         $package->save();
-
-        // Package::create($pacakge);
 
         return redirect()->route('packages.index')->with('message', 'Package Created Successfully.');
     }
@@ -78,9 +77,9 @@ class PackageController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show()
     {
-        //
+        // $package = Package::all();
     }
 
     /**
@@ -99,9 +98,51 @@ class PackageController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-    {
-        //
+{
+    // Validate request data
+    $request->validate([
+        'package_name' => 'required|string|max:255',
+        'package_price' => 'required|decimal:2,8',
+        'package_days' => 'required|integer',
+        'package_category' => 'required|exists:categories,id',
+        'featured_package' => 'nullable|boolean',
+        'package_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+    ]);
+
+    // Find the package by id
+    $package = Package::find($id);
+
+    if (!$package) {
+        return redirect()->route('packages.index')->with('error', 'Package not found.');
     }
+
+    // Update package details
+    $package->name = $request->package_name;
+    $package->price = $request->package_price;
+    $package->no_of_days = $request->package_days;
+    $package->type = $request->has('featured_package') ? 1 : 0;
+    $package->cat_id = $request->package_category;
+
+    // Handle image upload if there's an image
+    if ($request->hasFile('package_image')) {
+
+        if ($package->image && $package->image !== 'images/package_default.png') {
+            // Delete the old image
+            Storage::disk('public')->delete($package->image);
+        }
+
+        // Store the new image
+        $imageName = time().'.'.$request->package_image->extension();
+        $request->package_image->storeAs('images', $imageName, 'public');
+        $package->image = 'images/'.$imageName;
+    }
+
+
+    $package->save(); //save
+
+    return redirect()->route('packages.index')->with('success', 'Package updated successfully.');
+}
+
 
     /**
      * Remove the specified resource from storage.

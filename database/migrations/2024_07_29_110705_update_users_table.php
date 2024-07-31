@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('packages', function (Blueprint $table) {
-            $table->boolean('type')->default(0)->change();
-            $table->integer('counter')->nullable()->change();
-
-
+        Schema::table('users', function (Blueprint $table) {
+            $table->boolean('role')->default(0)->after('password');
         });
     }
 
@@ -24,9 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('packages', function (Blueprint $table) {
-            $table->boolean('type')->change();
-            $table->integer('counter')->change();
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('role');
         });
     }
 };

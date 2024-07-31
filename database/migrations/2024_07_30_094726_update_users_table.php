@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('packages', function (Blueprint $table) {
-            $table->string('image')->default('images/package_default.png')->change();
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('verification_token')->after('email_verified_at')->nullable();
         });
     }
 
@@ -21,12 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('packages', function (Blueprint $table) {
-<<<<<<< HEAD
-            $table->string('image')->change();
-=======
-            $table->dropColumn('image');
->>>>>>> ahmad
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('verification_token');
         });
     }
 };
