@@ -34,9 +34,9 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::prefix('user')->group(function () {
 
-    Route::get('dashboard', function () {
-        return view('user.index');
-    })->name('user.index');
+    Route::controller(UserController::class)->group(function (){
+        Route::get('dashboard','loggedUser')->name('user.index');
+    });
 
     Route::get('profile', function () {
         return view('user.profile');
