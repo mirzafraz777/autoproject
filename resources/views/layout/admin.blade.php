@@ -55,7 +55,7 @@
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
-                <a href="{{route('user.index')}}" class="navbar-brand mx-4 mb-3">
+                <a href="{{route('admin.index')}}" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary"></i>DASHMIN</h3>
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
@@ -93,7 +93,7 @@
     <div class="content">
         <!-- Navbar Start -->
         <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-            <a href="{{route('user.index')}}" class="navbar-brand d-flex d-lg-none me-4">
+            <a href="{{route('admin.index')}}" class="navbar-brand d-flex d-lg-none me-4">
                 <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
             </a>
             <a href="#" class="sidebar-toggler flex-shrink-0">
@@ -110,7 +110,7 @@
                         {{-- <span class="d-none d-lg-inline-flex">{{$user->name}}</span> --}}
                     </a>
                     <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                        <a href="{{route('user.profile')}}" class="dropdown-item">My Profile</a>
+                        <a href="{{route('admin.profile')}}" class="dropdown-item">My Profile</a>
                         <a href="{{route('admin.login')}}" class="dropdown-item">Log Out</a>
                     </div>
                 </div>
