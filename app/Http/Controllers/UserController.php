@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
     public function index(){
-        $users = User::with('users_info')
+        $users = User::with('users_info')->where('role' ,'<>', 1)
         ->get();
         return view('admin.users', compact('users') );
     }
@@ -30,7 +30,15 @@ class UserController extends Controller
             $user->users_info->save();
         }
         // Redirect back with a success message
-        return back();
+        return back()->with('message', 'Status Updated Successfully!');
+    }
+
+    public function destroy(string $id){
+        $user = User::findorfail($id);
+
+        $user->delete();    // it also deletes user-details
+
+        return back()->with('message', 'User deleted Successfully!');
     }
 
 }

@@ -74,6 +74,7 @@
                     <a href="{{route('admin.index')}}" class="nav-item nav-link {{ request()->is('admin/dashboard') ? 'active' : ''}}"><i
                             class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <a href="{{route('packages.index')}}" class="nav-item nav-link {{ request()->is('admin/packages') ? 'active' : ''}}"><i class="fa fa-box me-2"></i>Packages</a>
+                    <a href="{{route('category.index')}}" class="nav-item nav-link {{ request()->is('admin/category') ? 'active' : ''}}"><i class="fa fa-box me-2"></i>Category</a>
                     <a href="{{route('admin.users')}}" class="nav-item nav-link {{ request()->is('admin/users') ? 'active' : ''}}"><i class="fa fa-users me-2"></i>Users</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-money-check-dollar"></i>Withdrawl</a>
@@ -107,7 +108,7 @@
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                         <img class="rounded-circle me-lg-2" src="{{ asset('frontend/assets/images/property-01.jpg') }}" alt=""
                             style="width: 40px; height: 40px;">
-                        {{-- <span class="d-none d-lg-inline-flex">{{$user->name}}</span> --}}
+                        <span class="d-none d-lg-inline-flex">{{ auth()->user()->name }}</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                         <a href="{{route('admin.profile')}}" class="dropdown-item">My Profile</a>

@@ -16,7 +16,7 @@
         <li>
           <a href="#!" data-filter="{{'.'.$category->category_name}}">{{$category->category_name}}</a>
         </li>
-            
+
         @endforeach
       </ul>
         <div class="row properties-box" style="position: relative; height: 1903.41px;">

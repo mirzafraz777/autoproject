@@ -194,116 +194,57 @@
         <div class="col-lg-4">
           <div class="section-heading">
             <h6>| Best Deal</h6>
-            <h2>Find Your Best Deal Right Now!</h2>
+            <h2>Select Your Best Deal Right Now!</h2>
           </div>
         </div>
         <div class="col-lg-12">
           <div class="tabs-content">
             <div class="row">
-              <div class="nav-wrapper ">
-                <ul class="nav nav-tabs" role="tablist">
-                  <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="appartment-tab" data-bs-toggle="tab"
-                      data-bs-target="#appartment" type="button" role="tab" aria-controls="appartment"
-                      aria-selected="true">Appartment</button>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="villa-tab" data-bs-toggle="tab" data-bs-target="#villa" type="button"
-                      role="tab" aria-controls="villa" aria-selected="false">Villa House</button>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="penthouse-tab" data-bs-toggle="tab" data-bs-target="#penthouse"
-                      type="button" role="tab" aria-controls="penthouse" aria-selected="false">Penthouse</button>
-                  </li>
-                </ul>
-              </div>
-              <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="appartment" role="tabpanel" aria-labelledby="appartment-tab">
-                  <div class="row">
-                    <div class="col-lg-3">
-                      <div class="info-table">
-                        <ul>
-                          <li>Total Flat Space <span>185 m2</span></li>
-                          <li>Floor number <span>26th</span></li>
-                          <li>Number of rooms <span>4</span></li>
-                          <li>Parking Available <span>Yes</span></li>
-                          <li>Payment Process <span>Bank</span></li>
+                <div class="container">
+                    <div class="section properties">
+                        <ul class="properties-filter">
+                            {{-- <li>
+                                <a class="is_active" href="#!" data-filter="*">Show All</a>
+                            </li> --}}
+                            @foreach ($featured_packages as $category)
+                            <li>
+                                <a href="#!" class="active" data-filter=".{{ $category->category->category_name }}">{{ $category->category->category_name }}</a>
+                            </li>
+                            @endforeach
                         </ul>
-                      </div>
+                        <div class="tab-content" id="myTabContent">
+                            @foreach ($packages as $package)
+                            <div class="tab-pane package {{ $package->category->category_name }}" id="package-{{ $package->id }}" role="tabpanel">
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="info-table">
+                                            <ul>
+                                                <li>Price <span>{{ '$' . $package->price }}</span></li>
+                                                <li>Category <span>{{ $package->category->category_name }}</span></li>
+                                                <li>Bonus Interval <span>{{ $package->no_of_days }}</span></li>
+                                                <li>Buying Times <span>{{ $package->counter }}</span></li>
+                                                <li>Package <span class="small">{{ $package->name }}</span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <img src="{{ $package->image ? asset('storage/images/' . $package->image) : asset('storage/images/package_default.png') }}" alt="">
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <h4>Extra Info About Property</h4>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, do eiusmod tempor pack incididunt ut labore et dolore magna aliqua quised ipsum suspendisse.
+                                            <br><br>When you need free CSS templates, you can simply type TemplateMo in any search engine website. In addition, you can type TemplateMo Portfolio, TemplateMo One Page Layouts, etc.
+                                        </p>
+                                        <div class="icon-button">
+                                            <a href="{{ route('buy-package', $package->id) }}"><i class="fa fa-cart-shopping"></i> Buy Now</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
                     </div>
-                    <div class="col-lg-6">
-                      <img src="{{ asset('frontend/assets/images/deal-01.jpg') }}" alt="">
-                    </div>
-                    <div class="col-lg-3">
-                      <h4>Extra Info About Property</h4>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, do eiusmod tempor pack incididunt ut
-                        labore et dolore magna aliqua quised ipsum suspendisse.
-                        <br><br>When you need free CSS templates, you can simply type TemplateMo in any search engine
-                        website. In addition, you can type TemplateMo Portfolio, TemplateMo One Page Layouts, etc.
-                      </p>
-                      <div class="icon-button">
-                        <a href="{{route('buy-package',$package->id)}}"><i class="fa fa-cart-shopping"></i> Buy Now</a>
-                      </div>
-                    </div>
-                  </div>
                 </div>
-                <div class="tab-pane fade" id="villa" role="tabpanel" aria-labelledby="villa-tab">
-                  <div class="row">
-                    <div class="col-lg-3">
-                      <div class="info-table">
-                        <ul>
-                          <li>Total Flat Space <span>250 m2</span></li>
-                          <li>Floor number <span>26th</span></li>
-                          <li>Number of rooms <span>5</span></li>
-                          <li>Parking Available <span>Yes</span></li>
-                          <li>Payment Process <span>Bank</span></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <img src="{{ asset('frontend/assets/images/deal-02.jpg') }}" alt="">
-                    </div>
-                    <div class="col-lg-3">
-                      <h4>Detail Info About Villa</h4>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, do eiusmod tempor pack incididunt ut
-                        labore et dolore magna aliqua quised ipsum suspendisse. <br><br>Swag fanny pack lyft blog twee.
-                        JOMO ethical copper mug, succulents typewriter shaman DIY kitsch twee taiyaki fixie hella venmo
-                        after messenger poutine next level humblebrag swag franzen.</p>
-                      <div class="icon-button">
-                        <a href="{{route('buy-package',$package->id)}}"><i class="fa fa-cart-shopping"></i> Buy Now</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="tab-pane fade" id="penthouse" role="tabpanel" aria-labelledby="penthouse-tab">
-                  <div class="row">
-                    <div class="col-lg-3">
-                      <div class="info-table">
-                        <ul>
-                          <li>Total Flat Space <span>320 m2</span></li>
-                          <li>Floor number <span>34th</span></li>
-                          <li>Number of rooms <span>6</span></li>
-                          <li>Parking Available <span>Yes</span></li>
-                          <li>Payment Process <span>Bank</span></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <img src="{{ asset('frontend/assets/images/deal-03.jpg') }}" alt="">
-                    </div>
-                    <div class="col-lg-3">
-                      <h4>Extra Info About Penthouse</h4>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, do eiusmod tempor pack incididunt ut
-                        labore et dolore magna aliqua quised ipsum suspendisse. <br><br>Swag fanny pack lyft blog twee.
-                        JOMO ethical copper mug, succulents typewriter shaman DIY kitsch twee taiyaki fixie hella venmo
-                        after messenger poutine next level humblebrag swag franzen.</p>
-                      <div class="icon-button">
-                        <a href="{{route('buy-package',$package->id)}}"><i class="fa fa-cart-shopping"></i> Buy Now</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>

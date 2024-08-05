@@ -24,26 +24,65 @@ class AuthController extends Controller
             'password' => 'required|string|min:4|confirmed',
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-        $user_details = $user->users_info()->create([
-            'u_id' => $user->id,
-            'ref_code' => Str::random(10),
-            'img' => 'images/profile/default.png',
-        ]);
-        return redirect()->route('login')->with('message', 'Account created successfully.');
+        if(!empty($request->ref_code)){
+            $reference = User::where('ref_code', $request->ref_code)->first();
+            // dd($reference->id);
+            if(!empty($reference)){
+
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'ref_code' => Str::random(10),
+            ]);
+
+            $user_details = $user->users_info()->create([
+                'u_id' => $user->id,
+                'parent_user_id' => $reference->id,
+                'ref_code' => $request->ref_code,
+                'img' => 'images/profile/default.png',
+            ]);
+
+            return redirect()->route('login')->with('message', 'Account created successfully.');
+
+            }else{
+                return redirect()->route('register')->with('message', 'Invalid Refferal Code.');
+            }
+
+        }
+
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'ref_code' => Str::random(10),
+            ]);
+
+            $user_details = $user->users_info()->create([
+                'u_id' => $user->id,
+                'img' => 'images/profile/default.png',
+            ]);
+
+            return redirect()->route('login')->with('message', 'Account created successfully.');
+
     }
+
 
     // -------------------------LogIn----------------------------------------
     public function showLoginForm()
     {
-        if (Auth::check()) {
+        if (Auth::check() && Auth::user()->role == 1) {
+
+            return redirect()->route('admin.index');
+
+        } elseif(Auth::check() && Auth::user()->role == 0) {
+
             return redirect()->route('user.index');
-        } else {
+
+        }else{
+
             return view('login');
+
         }
     }
 
@@ -59,66 +98,50 @@ class AuthController extends Controller
             $user = Auth::user();
 
             if ($user->role == 0) {
-                return redirect()->route('user.index')->with('message', 'Logged In Successfully.');
+                return redirect()->route('home')->with('message', 'Logged In Successfully.');
             } else {
-                Auth::logout();
-                return redirect()->route('home')->with('message', 'You are not authorized.');
+                // Auth::logout();
+                return redirect()->route('admin.index')->with('message', 'Logged In Successfully.');
             }
         }
         return back()->with('message', 'The provided credentials do not match our records.');
     }
 
-    // ------------------------- LogOut ---------------------
-
     // admin login
-    public function Adminlogin(Request $request){
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
+    // public function Adminlogin(Request $request){
+    //     $credentials = $request->validate([
+    //         'email' => ['required', 'email'],
+    //         'password' => ['required'],
+    //     ]);
 
-        if (Auth::attempt($credentials)) {
-            $user = Auth::user();
-            if($user->role == 1){
-                return view('admin.index');
-            }
-            return redirect()->route('admin.login')->with('message', 'The provided credentials do not match our records.');
-        }
-    }
-
-        // Admin Dashboard
-        public function adminDash(Request $request){
-            if (Auth::check()) {
-                $data = UserDetail::all();
-                $balance = $data->sum('current_balance');
-                $total_earning = $data->sum('total_earning');
-                $ref_bonus = $data->sum('ref_bonus');
-                $total = $total_earning + $ref_bonus;
-
-                return view('admin.index', compact('balance', 'total', 'ref_bonus'));
-            } else {
-                return redirect()->route('admin.login');
-            }
-        }
+    //     if (Auth::attempt($credentials)) {
+    //         $user = Auth::user();
+    //         if($user->role == 1){
+    //             return view('admin.index');
+    //         }
+    //         return redirect()->route('admin.login')->with('message', 'The provided credentials do not match our records.');
+    //     }
+    // }
 
         // user logout
-        public function userLogout(Request $request)
+        // public function userLogout(Request $request)
+        public function logout(Request $request)
         {
             Auth::logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
             return redirect('login');
         }
-     // Admin LogOut ---------------------
-    public function adminLogout(Request $request)
-    {
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return redirect()->route('home')->with('message', 'Logout Successfully.');
-    }
+    //  // Admin LogOut ---------------------
+    // public function adminLogout(Request $request)
+    // {
+    //     Auth::logout();
+    //     $request->session()->invalidate();
+    //     $request->session()->regenerateToken();
+    //     return redirect()->route('home')->with('message', 'Logout Successfully.');
+    // }
 
-
+    // reset password
     public function resetPassword(Request $request)
     {
 
@@ -144,6 +167,7 @@ class AuthController extends Controller
         }
     }
 
+    // update password
     public function passwordUpdate($token, Request $request)
     {
         if ($request->isMethod('POST')) {

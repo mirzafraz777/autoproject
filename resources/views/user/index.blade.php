@@ -36,7 +36,7 @@
                             <i class="fa fa-chart-bar fa-3x text-primary"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Status</p>
-                                <h6 class="mb-0 text-danger">Inactive</h6>
+                                <h6 class="mb-0 text-{{ (Auth::user()->users_info->status == 1) ? 'success' : 'danger' }}">{{ (Auth::user()->users_info->status == 1) ? 'Active' : 'Inactive' }}</h6>
                             </div>
                         </div>
                     </div>
@@ -51,13 +51,18 @@
                         <div class="row justify-content-center align-items-center mb-3">
                             <label for="inputReferral" class="col-sm-2 col-form-label"><strong>Referral Link</strong></label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="inputReferral" value="https://www.example.comn/?ref=123" readonly>
+                                @php
+                                    $id = Auth::user()->id;
+                                    $refer = App\Models\User::where('id',$id)->first();
+                                @endphp
+                                <input type="text" class="form-control" id="inputReferral" value="{{ route('register', ['ref_code' => $refer->ref_code]) }}" readonly>
                             </div>
                             <div class="col-sm-2">
-                                <button type="button" class="btn btn-sm btn-success" id="refButton"> <i class="fa fa-regular fa-copy"></i> Copy Link</button>
+                                <button type="button" class="btn btn-sm btn-success" id="refButton">
+                                    <i class="fa fa-regular fa-copy"></i> Copy Link
+                                </button>
                             </div>
                         </div>
-
                     </form>
                 </div>
             </div>

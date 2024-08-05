@@ -18,6 +18,8 @@
                 {{ session('success') }}
             </div>
             @endif
+          <x-alert />
+
             <form id="login-form" action="{{route('register')}}" method="POST">
                 @csrf
                 <div class="row">
@@ -44,6 +46,21 @@
                         <fieldset>
                             <label for="password_confirmation">Confirm Password</label>
                             <input type="password" name="password_confirmation" id="password_confirmation" placeholder="Confirm Password..." autocomplete="on" required>
+                        </fieldset>
+                    </div>
+                    <div class="col-lg-12">
+                        <fieldset>
+                            <label for="password">Referral Code</label>
+
+                            @if(request('ref_code'))
+
+                            <input type="text" name="ref_code" id="ref_code" placeholder="Optional..." readonly autocomplete="on" value="{{ request('ref_code') }}">
+
+                            @else
+
+                            <input type="text" name="ref_code" id="ref_code" placeholder="Optional..." autocomplete="on" value="{{ request('ref_code') }}">
+
+                            @endif
                         </fieldset>
                     </div>
                     <div class="col-lg-12">
