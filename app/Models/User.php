@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 
 class User extends Authenticatable
@@ -24,10 +25,6 @@ class User extends Authenticatable
         'password',
     ];
 
-    public function user_details(): HasOne
-    {
-        return $this->hasOne(UserDetails::class, 'u_id');
-    }
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -54,6 +51,15 @@ class User extends Authenticatable
     public function users_info() :HasOne
     {
         return $this->hasOne(UserDetail::class,'u_id','id');
+    }
+   
+    public function latestOrder() :HasOne
+    {
+        return $this->hasOne(Order::class,'u_id','id')->latestOfMany();
+    }
+    public function allOrders() :HasMany
+    {
+        return $this->hasMany(Order::class,'u_id','id');
     }
 
 }

@@ -3,9 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\category;
-use Illuminate\Http\Request;
 use App\Models\Contact;
+use App\Models\Order;
 use App\Models\Package;
+use App\Models\User;
+use App\Models\UserDetail;
+use Illuminate\Http\Request;
+use GuzzleHttp\Promise\Create;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class HomeController extends Controller
 {
@@ -23,7 +29,7 @@ class HomeController extends Controller
         return view('packages', compact('packages','categories'));
     }
 
-    public function buyPackage($id)
+    public function packageShowSingle($id)
     {
         $package = Package::where('id',$id)->with('category')->first();
 
@@ -32,6 +38,34 @@ class HomeController extends Controller
             $related_package = Package::where('cat_id',$category_id)->with('category')->limit(3)->get();
     
             return view('buy-package',compact('package','related_package'));
+        }else{
+
+            return redirect()->route('home')->with('message','Bad Request.');
+        }
+    }
+
+
+    public function buyPackage($id)
+    {
+        $package = Package::where('id',$id)->first();
+        $user = Auth::user();
+        $userInfo = User::find($user->id)->users_info;
+        if($package && $userInfo->current_balance >= $package->price){
+            Order::create([
+                'u_id'=>$user->id,
+                'trx'=>Str::random(),
+                'package_name'=>$package->name,
+                'package_amount'=>$package->price,
+                'payment_method'=>'Current Balance'
+                
+            ]);
+
+        // $userInfo = User::find($user->id)->users_info;
+        $userInfo->current_balance -= $package->price;
+        $userInfo->status = 1;
+        $userInfo->save(); 
+        return redirect()->route('user.index')->with('message','Package Purchased Successfully.');
+
         }else{
 
             return redirect()->route('home')->with('message','Bad Request.');

@@ -12,7 +12,8 @@ use App\Http\Controllers\UserController;
 Route::controller(HomeController::class)->group(function () {
     Route::get('/', 'index')->name('home');
     Route::get('/packages', 'packageShowAll')->name('packages');
-    Route::get('/buy-package/{id}', 'buyPackage')->name('buy-package');
+    Route::get('/buy-package/{id}', 'packageShowSingle')->name('buy-package');
+    Route::post('/buy-package/{id}', 'buyPackage')->name('buy-package');
     Route::get('/contact', 'contactFormShow')->name('contactShow');
     Route::post('/contact', 'contactForm')->name('contactSubmit');
 });
@@ -36,6 +37,7 @@ Route::prefix('user')->group(function () {
 
     Route::controller(UserController::class)->group(function (){
         Route::get('dashboard','loggedUser')->name('user.index');
+        Route::get('orders','userOrderDetails')->name('user.orders');
     });
 
     Route::get('profile', function () {

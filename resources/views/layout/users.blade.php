@@ -29,6 +29,9 @@
 
     <!-- Template Stylesheet -->
     <link href="{{ asset('dashboard/css/style.css')}}" rel="stylesheet">
+    <!-- Page Specific  CSS -->
+    @stack('styles')
+
 </head>
 
 <body>
@@ -57,8 +60,9 @@
                         </div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0">Jhon Doe</h6>
+                        <h6 class="mb-0">{{ ucfirst(auth()->user()->name)}}</h6>
                         <span>User</span>
+                        {{-- <span class="fw-bold {{ ($user->users_info->status) ? 'text-success' : 'text-danger' }}">{{ ($user->users_info->status) ? 'Active' : 'Inactive' }}</span> --}}
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
@@ -125,7 +129,7 @@
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                         <img class="rounded-circle me-lg-2" src="{{ asset('dashboard/img/user.jpg') }}" alt=""
                             style="width: 40px; height: 40px;">
-                        <span class="d-none d-lg-inline-flex">John Doe</span>
+                        <span class="d-none d-lg-inline-flex">{{ ucfirst(auth()->user()->name)}}</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                         <a href="{{route('user.profile')}}" class="dropdown-item">My Profile</a>
@@ -177,6 +181,12 @@
 
     <!-- Template Javascript -->
     <script src="{{ asset('dashboard/js/main.js')}}"></script>
+
+    <!-- Page Specific  Javascript -->
+    @stack('scripts')
+
+
+    
 </body>
 
 </html>

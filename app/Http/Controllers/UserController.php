@@ -9,25 +9,46 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function index()
-    {
-        $users = User::with('users_info')
-            ->get();
-        return view('admin.users', compact('users'));
-    }
+
+// ------- User Panel User Details Code ----- //
 
     public function loggedUser()
     {
         if (Auth::check()) {
             $loggedUser = Auth::user()->getAuthIdentifier();
             $user = User::where('id', $loggedUser)
-                ->with('users_info')
-                ->get();
-            return $user;
+                ->with(['users_info','latestOrder'])
+                ->first();
+                // return $user;
             return view('user.index', compact('user'));
         } else {
             return redirect()->route('login');
         }
+    }
+
+
+    public function userOrderDetails()
+    {
+        if (Auth::check()) {
+            $loggedUser = Auth::user()->getAuthIdentifier();
+            $user = User::where('id', $loggedUser)
+                ->with(['users_info','allOrders'])
+                ->first();
+                return $user;
+            return view('user.order', compact('user'));
+        } else {
+            return redirect()->route('login');
+        }
+    }
+
+
+// ------- Admin Panel User Details Code ----- //
+
+    public function index()
+    {
+        $users = User::with('users_info')
+            ->get();
+        return view('admin.users', compact('users'));
     }
 
     // update status

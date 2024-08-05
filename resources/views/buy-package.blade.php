@@ -40,9 +40,21 @@
                 <br><br>When you need free CSS templates, you can simply type TemplateMo in any search engine
                 website. In addition, you can type TemplateMo Portfolio, TemplateMo One Page Layouts, etc.
               </p> --}}
+              @guest
               <div class="icon-button">
-                <a href="#"><i class="fa fa-money-check-dollar"></i> Pay Now</a>
+                <li><a href="{{route('login')}}"><i class="fa fa-user"></i> Login</a></li>
               </div>
+              @endguest
+              @auth                   
+                <form action="{{route('buy-package',$package->id)}}" method="post">
+                  @csrf
+                  <fieldset>
+                    <div class="icon-button">
+                      <button type="submit"><i class="fa fa-money-check-dollar"></i> Pay Now</button>
+                    </div>
+                  </fieldset>                
+                </form>
+              @endauth              
             </div>
           </div>
         </div>

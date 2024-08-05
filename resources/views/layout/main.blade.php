@@ -63,11 +63,12 @@
               <li><a href="/" class="{{ request()->is('/') ? 'active' : ''}}">Home</a></li>
               <li><a href="{{route('packages')}}" class="{{ request()->is('packages') ? 'active' : ''}}">Packages</a></li>
               <li><a href="{{route('contactShow')}}"  class="{{ request()->is('contactShow') ? 'active' : ''}}">Contact Us</a></li>
-              @if (Auth::check())
+              @auth
               <li><a href="{{route('user.index')}}"><i class="fa fa-gauge-high"></i> Dashboard</a></li>
-              @else    
+              @endauth
+              @guest
               <li><a href="{{route('login')}}"><i class="fa fa-user"></i> Login</a></li>
-              @endif
+              @endguest
               
             </ul>
             <a class='menu-trigger'>

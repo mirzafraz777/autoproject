@@ -9,7 +9,7 @@
                             <i class="fa fa-money-check-dollar fa-3x text-primary"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Balance</p>
-                                <h6 class="mb-0">$1234</h6>
+                                <h6 class="mb-0">{{'$'.$user->users_info->current_balance}}</h6>
                             </div>
                         </div>
                     </div>
@@ -18,7 +18,7 @@
                             <i class="fa fa-chart-area fa-3x text-primary"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Today Revenue</p>
-                                <h6 class="mb-0">$1234</h6>
+                                <h6 class="mb-0">{{'$'.$user->users_info->total_earning }}</h6>
                             </div>
                         </div>
                     </div>
@@ -27,7 +27,7 @@
                             <i class="fa fa-chart-pie fa-3x text-primary"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Referral Bonus</p>
-                                <h6 class="mb-0">$1234</h6>
+                                <h6 class="mb-0">{{'$'.$user->users_info->ref_bonus }}</h6>
                             </div>
                         </div>
                     </div>
@@ -35,8 +35,8 @@
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                             <i class="fa fa-chart-bar fa-3x text-primary"></i>
                             <div class="ms-3">
-                                <p class="mb-2">Status</p>
-                                <h6 class="mb-0 text-danger">Inactive</h6>
+                                <p class="mb-2">Current Package</p>
+                                <h6 class="mb-0 {{ ($user->users_info->status) ? 'text-success' : 'text-danger' }}">{{ ($user->latestOrder->package_name) ? $user->latestOrder->package_name : 'No Package Active' }}</h6>
                             </div>
                         </div>
                     </div>
@@ -51,7 +51,7 @@
                         <div class="row justify-content-center align-items-center mb-3">
                             <label for="inputReferral" class="col-sm-2 col-form-label"><strong>Referral Link</strong></label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="inputReferral" value="https://www.example.comn/?ref=123" readonly>
+                                <input type="text" class="form-control" id="inputReferral" value="{{url('register?ref_code='.$user->users_info->ref_code) }}" readonly>
                             </div>
                             <div class="col-sm-2">
                                 <button type="button" class="btn btn-sm btn-success" id="refButton"> <i class="fa fa-regular fa-copy"></i> Copy Link</button>

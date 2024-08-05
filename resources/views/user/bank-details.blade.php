@@ -8,20 +8,21 @@
                     <div class="col-sm-12">
                         <div class="bg-light rounded h-100 p-4">
                             <h6 class="mb-4">Add Bank Details</h6>
-                            <form>
+                            <form action="" method="POST">
+                                @csrf
                                 <div class="row mb-3">
                                     <label for="bankType" class="col-sm-2 col-form-label">Bank Type</label>
                                     <div class="col-sm-10">
                                         <select id="bankType" class="form-select mb-3"
                                             aria-label="Default select example">
-                                            <option selected="">Select Bank Type</option>
-                                            <option value="1">JazzCash</option>
-                                            <option value="2">Easypaisa</option>
-                                            <option value="3">Bank Account</option>
+                                            <option value="">Select Bank Type</option>
+                                            <option value="mobileNumberDetails">JazzCash</option>
+                                            <option value="mobileNumberDetails">Easypaisa</option>
+                                            <option value="bankDetails">Bank Account</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div  id="bankDetails" class="d-block">
+                                <div class="box bankDetails">
                                     <div class="row mb-3">
                                         <label for="bankName" class="col-sm-2 col-form-label">Bank Name</label>
                                         <div class="col-sm-10">
@@ -41,10 +42,18 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div id="mobileNumberDetails" class="row mb-3 d-none">
-                                    <label for="mobNumber" class="col-sm-2 col-form-label">Mobile No:</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="mobNumber">
+                                <div class="box mobileNumberDetails">
+                                    <div class="row mb-3">
+                                        <label for="accTitle" class="col-sm-2 col-form-label">Account Title</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="accTitle">
+                                        </div>
+                                    </div>                                    
+                                    <div class="row mb-3">
+                                        <label for="mobNumber" class="col-sm-2 col-form-label">Mobile No:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="mobNumber">
+                                        </div>
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -113,6 +122,31 @@
             </div>
             <!-- Bank Details End -->
 
-           
+
+        @push('styles')
+            <style>
+                .box{
+                    display: none;
+                }
+            </style>
+        @endpush
+
+        @push('scripts')
+        <script>
+            $(document).ready(function(){
+                $('select').change(function(){
+                    $(this).find("option:selected").each(function(){
+                        var optionValue = $(this).attr("value");
+                        if(optionValue){
+                            $(".box").not("." + optionValue).hide();
+                            $("." + optionValue).show();
+                        } else{
+                            $(".box").hide();
+                        }
+                    });
+                }).change();
+            });
+            </script>
+        @endpush
 
 @endsection
