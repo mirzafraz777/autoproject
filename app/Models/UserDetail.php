@@ -11,4 +11,10 @@ class UserDetail extends Model
     protected $fillable = [
         'u_id', 'current_balance', 'total_earning', 'ref_bonus', 'status', 'ref_code', 'img'
     ];
+
+    // for creating team
+    public function team_info()
+    {
+        return $this->belongsTo(User::class,'u_id');
+    }
 }

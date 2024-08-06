@@ -1,5 +1,5 @@
 (function ($) {
-	
+
 	"use strict";
 
 	// Page loading animation
@@ -76,7 +76,7 @@
 
 	// Menu Dropdown Toggle
 	if($('.menu-trigger').length){
-		$(".menu-trigger").on('click', function() {	
+		$(".menu-trigger").on('click', function() {
 			$(this).toggleClass('active');
 			$('.header-area .nav').slideToggle(200);
 		});
@@ -92,8 +92,8 @@
 				var width = $(window).width();
 				if(width < 991) {
 					$('.menu-trigger').removeClass('active');
-					$('.header-area .nav').slideUp(200);	
-				}				
+					$('.header-area .nav').slideUp(200);
+				}
 				$('html,body').animate({
 					scrollTop: (target.offset().top) - 80
 				}, 700);
@@ -120,7 +120,53 @@
 			}, 300);
 		});
 	});
-    
+
 
 
 })(window.jQuery);
+
+document.addEventListener("DOMContentLoaded", function () {
+    const filters = document.querySelectorAll(".properties-filter a");
+    const packages = document.querySelectorAll(".tab-pane.package");
+
+    // Hide all packages except the first one
+    packages.forEach((pkg, index) => {
+        if (index !== 0) {
+            pkg.style.display = "none";
+        }
+    });
+// code of home page package filter
+    filters.forEach(filter => {
+        filter.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            filters.forEach(f => f.classList.remove("is_active")); // Remove active class from all filters
+
+            this.classList.add("is_active"); // Add active class to the clicked filter
+
+            const filterCategory = this.getAttribute("data-filter"); // Get the filter category
+
+            // Show/Hide packages based on the selected category
+            packages.forEach(pkg => {
+                if (filterCategory === "*" || pkg.classList.contains(filterCategory.substring(1))) {
+                    pkg.style.display = "block";
+                } else {
+                    pkg.style.display = "none";
+                }
+            });
+        });
+    });
+    // Auto-select the first filter
+    if (filters.length > 0) {
+        filters[0].click();
+    }
+});
+//  for copy link ( refferal code )
+document.getElementById('refButton').addEventListener('click', function() {
+    var referralLink = document.getElementById('inputReferral').value;
+    navigator.clipboard.writeText(referralLink).then(function() {
+        alert('Link copied to clipboard!');
+    }).catch(function(err) {
+        console.error('Failed to copy: ', err);
+    });
+});

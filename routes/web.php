@@ -1,18 +1,20 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Models\Package;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\PackageController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PackageController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\WithdrawalsController;
 
 // FrontEnd Routes
 Route::controller(HomeController::class)->group(function () {
     Route::get('/', 'index')->name('home');
     Route::get('/packages', 'packageShowAll')->name('packages');
-    Route::get('/buy-package/{id}', 'packageShowSingle')->name('buy-package');
+    Route::get('/buy-package/{id}', 'packageShowSingle')->name('single-package');
     Route::post('/buy-package/{id}', 'buyPackage')->name('buy-package');
     Route::get('/contact', 'contactFormShow')->name('contactShow');
     Route::post('/contact', 'contactForm')->name('contactSubmit');
@@ -44,13 +46,9 @@ Route::prefix('user')->group(function () {
         return view('user.profile');
     })->name('user.profile');
 
-    Route::get('team', function () {
-        return view('user.team');
-    })->name('user.team');
+    Route::get('team',[TeamController::class, 'teamShow'])->name('user.team');
 
-    Route::get('withdrawls', function () {
-        return view('user.withdrawls');
-    })->name('user.withdrawls');
+    Route::get('withdrawls',[WithdrawalsController::class, 'index'])->name('user.withdrawls');
 
     Route::get('bank-details', function () {
         return view('user.bank-details');

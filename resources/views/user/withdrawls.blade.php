@@ -12,63 +12,37 @@
                         <table class="table text-start align-middle table-bordered table-hover mb-0">
                             <thead>
                                 <tr class="text-dark">
-                                    <th scope="col"><input class="form-check-input" type="checkbox"></th>
-                                    <th scope="col">Date</th>
+                                    <th scope="col">Sr#</th>
+                                    <th scope="col">Bank Name</th>
                                     <th scope="col">Invoice</th>
-                                    <th scope="col">Customer</th>
                                     <th scope="col">Amount</th>
                                     <th scope="col">Status</th>
-                                    <th scope="col">Action</th>
+                                    <th scope="col">Message</th>
+                                    <th scope="col">Date</th>
+                                    {{-- <th scope="col">Action</th> --}}
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td><input class="form-check-input" type="checkbox"></td>
-                                    <td>01 Jan 2045</td>
-                                    <td>INV-0123</td>
-                                    <td>Jhon Doe</td>
-                                    <td>$123</td>
-                                    <td>Paid</td>
-                                    <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                                </tr>
-                                <tr>
-                                    <td><input class="form-check-input" type="checkbox"></td>
-                                    <td>01 Jan 2045</td>
-                                    <td>INV-0123</td>
-                                    <td>Jhon Doe</td>
-                                    <td>$123</td>
-                                    <td>Paid</td>
-                                    <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                                </tr>
-                                <tr>
-                                    <td><input class="form-check-input" type="checkbox"></td>
-                                    <td>01 Jan 2045</td>
-                                    <td>INV-0123</td>
-                                    <td>Jhon Doe</td>
-                                    <td>$123</td>
-                                    <td>Paid</td>
-                                    <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                                </tr>
-                                <tr>
-                                    <td><input class="form-check-input" type="checkbox"></td>
-                                    <td>01 Jan 2045</td>
-                                    <td>INV-0123</td>
-                                    <td>Jhon Doe</td>
-                                    <td>$123</td>
-                                    <td>Paid</td>
-                                    <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                                </tr>
-                                <tr>
-                                    <td><input class="form-check-input" type="checkbox"></td>
-                                    <td>01 Jan 2045</td>
-                                    <td>INV-0123</td>
-                                    <td>Jhon Doe</td>
-                                    <td>$123</td>
-                                    <td>Paid</td>
-                                    <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <tbody>
+                                @if($details && count($details) > 0)
+                                        @foreach ($details as $withdrawal)
+                                            <tr>
+                                                <td>{{$withdrawal->id}}</td>
+                                                <td>{{$withdrawal->bank_id}}</td>
+                                                <td>{{$withdrawal->invoice}}</td>
+                                                <td>{{$withdrawal->amount}}</td>
+                                                <td>{{$withdrawal->status}}</td>
+                                                <td>{{$withdrawal->message}}</td>
+                                                <td>{{$withdrawal->updated_at->format('d-m-Y')}}</td>
+                                                {{-- <td><a class="btn btn-sm btn-success" href="">View</a></td> --}}
+                                            </tr>
+                                        @endforeach
+                                @else
+                                        <tr>
+                                            <td colspan="8">No withdrawals found.</td>
+                                        </tr>
+                                @endif
+                        </tbody>
+                    </table>
                     </div>
                 </div>
             </div>

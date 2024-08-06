@@ -15,11 +15,14 @@ use Illuminate\Support\Str;
 
 class HomeController extends Controller
 {
-    public function index() // Show 5 Packages on Home Page.
+    public function index() // Show 3 Packages on Home Page.
     {
         $packages = Package::with('category')->limit(3)->get();
         $featured_package = Package::where('type',1)->with('category')->first();
-        return view('home', compact('packages','featured_package'));
+        // three featured packages
+        $category = Package::where('type', 1)->distinct()->pluck('cat_id');
+        $featured_packages = Package::whereIn('cat_id', $category)->where('type', 1)->get();
+        return view('home', compact('packages','featured_package', 'featured_packages'));
     }
 
     public function packageShowAll()  // Show All Packages on Packages Page.
@@ -36,7 +39,7 @@ class HomeController extends Controller
         if($package){
             $category_id = $package->category->id;
             $related_package = Package::where('cat_id',$category_id)->with('category')->limit(3)->get();
-    
+
             return view('buy-package',compact('package','related_package'));
         }else{
 
@@ -57,13 +60,13 @@ class HomeController extends Controller
                 'package_name'=>$package->name,
                 'package_amount'=>$package->price,
                 'payment_method'=>'Current Balance'
-                
+
             ]);
 
         // $userInfo = User::find($user->id)->users_info;
         $userInfo->current_balance -= $package->price;
         $userInfo->status = 1;
-        $userInfo->save(); 
+        $userInfo->save();
         return redirect()->route('user.index')->with('message','Package Purchased Successfully.');
 
         }else{
@@ -85,7 +88,7 @@ class HomeController extends Controller
             'email' => 'required|email',
             'subject' => 'required|string|max:20',
             'message' => 'required|string',
- 
+
         ]);
 
 

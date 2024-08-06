@@ -1,6 +1,6 @@
 @extends('../layout.users')
 @section('userContent')
-    
+
             <!-- Sales and Revenue Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
@@ -36,7 +36,7 @@
                             <i class="fa fa-chart-bar fa-3x text-primary"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Current Package</p>
-                                <h6 class="mb-0 {{ ($user->users_info->status) ? 'text-success' : 'text-danger' }}">{{ ($user->latestOrder->package_name) ? $user->latestOrder->package_name : 'No Package Active' }}</h6>
+                                {{-- <h6 class="mb-0 {{ ($user->users_info->status) ? 'text-success' : 'text-danger' }}">{{ ($user->latestOrder->package_name) ? $user->latestOrder->package_name : 'No Package Active' }}</h6> --}}
                             </div>
                         </div>
                     </div>

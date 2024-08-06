@@ -15,50 +15,41 @@
                                 <tr class="text-dark">
                                     <th scope="col">Sr.</th>
                                     <th scope="col">Name</th>
-                                    <th scope="col">Package</th>
-                                    <th scope="col">Joining Date</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Image</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td><img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">Jhon Doe</td>
-                                    <td>Silver</td>
-                                    <td>01 Jan 2045</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td><img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">Jhon Doe</td>
-                                    <td>Paltinum</td>
-                                    <td>01 Jan 2045</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td><img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">Jhon Doe</td>
-                                    <td>Gold</td>
-                                    <td>01 Jan 2045</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td><img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">Jhon Doe</td>
-                                    <td>Bronze</td>
-                                    <td>01 Jan 2045</td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td><img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">Jhon Doe</td>
-                                    <td>Paltinum</td>
-                                    <td>01 Jan 2045</td>
-                                </tr>
+                                    @if($users->isNotEmpty())
+                                    @foreach ($users as $user)
+
+
+                                    <tr>
+                                        <td>{{ $user->id }}</td>
+                                        <td>{{ $user->team_info->name }}   </td>
+                                        <td>{{ $user->team_info->email }}   </td>
+                                        <td><img class="rounded-circle me-lg-2" src="{{ Storage::url($user->img) }}" alt="" style="width: 40px; height: 40px;"></td>
+                                    </tr>
+                                    @endforeach
+                                    @else
+                                    <tr>
+                                        <td colspan="3" class="text-center h5 text-danger">No Refferal found!</td>
+                                    </tr>
+                                    @endif
+
                             </tbody>
+
                         </table>
+                        <div class="row mt-3">
+                            {{ $users->links() }}
+                        </div>
                     </div>
                 </div>
             </div>
             <!-- Team End -->
 
 
-            
+
 
 
 @endsection
